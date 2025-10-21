@@ -1,14 +1,16 @@
 from fastapi import FastAPI
 import random
 import csv
-import os
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "API is running"}
+
 # Load hospitals from CSV
 hospitals = []
-file_path = os.path.join(os.path.dirname(__file__), "hospitals.csv")
-with open(file_path, "r", encoding="utf-8") as f:
+with open("hospitals.csv", "r", encoding="utf-8") as f:
     reader = csv.DictReader(f)
     for row in reader:
         hospitals.append({
